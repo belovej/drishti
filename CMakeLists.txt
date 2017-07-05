@@ -296,6 +296,9 @@ endif()
 hunter_add_package(drishti_assets)
 find_package(drishti_assets CONFIG REQUIRED)
 
+hunter_add_package(drishti_faces)
+find_package(drishti_faces CONFIG REQUIRED)
+
 #######################
 ### Compiler checks ###
 #######################
