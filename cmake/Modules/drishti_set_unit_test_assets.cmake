@@ -5,21 +5,18 @@ function(drishti_set_unit_test_assets
     DRISHTI_MEAN_FACE_LANDMARKS
     )
 
-  set(ext "")
-  if(DRISHTI_SERIALIZE_WITH_CEREAL)
-    set(ext "cpb")
-  elseif(DRISHTI_SERIALIZE_WITH_BOOST AND NOT MSVC)
-    set(ext "pba.z")
-  elseif(DRISHTI_SERIALIZE_WITH_BOOST AND DRISHTI_USE_TEXT_ARCHIVES)
-    set(ext "txt")
-  elseif(DRISHTI_SERIALIZE_WITH_CVMATIO)
-    set(ext "mat")
-  else()
-    message(FATAL_ERROR "Invalid configuration")
+  if(NOT DRISHTI_SERIALIZE_WITH_CEREAL)
+    message(FATAL_ERROR "Unit tests currently require cereal ")
   endif()
 
+  # re-export variables from drishti-assets package for initial testing
+  # DRISHTI_ASSETS_FACE_DETECTOR 
+  # DRISHTI_ASSETS_FACE_LANDMARK_REGRESSOR
+  # DRISHTI_ASSETS_FACE_DETECTOR_MEAN
+  # DRISHTI_ASSETS_EYE_MODEL_REGRESSOR 
+
   ### DRISHTI_ACF_FACE_MODEL
-  set(file "${assets_dir}/drishti_face_inner_48x48.${ext}")
+  set(file "${DRISHTI_ASSETS_FACE_DETECTOR}")
   set("${DRISHTI_ACF_FACE_MODEL}" "${file}" PARENT_SCOPE)
 
   if(NOT EXISTS "${file}")
@@ -27,7 +24,7 @@ function(drishti_set_unit_test_assets
   endif()
 
   ### DRISHTI_FACE_LANDMARKER
-  set(file "${assets_dir}/drishti_face_inner.${ext}")
+  set(file "${DRISHTI_ASSETS_FACE_LANDMARK_REGRESSOR}")
   set("${DRISHTI_FACE_LANDMARKER}" "${file}" PARENT_SCOPE)
 
   if(NOT EXISTS "${file}")
@@ -35,7 +32,7 @@ function(drishti_set_unit_test_assets
   endif()
 
   ### DRISHTI_EYE_MODEL
-  set(file "${assets_dir}/drishti_eye_full_npd_eix.${ext}")
+  set(file "${DRISHTI_ASSETS_EYE_MODEL_REGRESSOR}")
   set("${DRISHTI_EYE_MODEL}" "${file}" PARENT_SCOPE)
 
   if(NOT EXISTS "${file}")
@@ -43,7 +40,7 @@ function(drishti_set_unit_test_assets
   endif()
 
   ### DRISHTI_MEAN_FACE_LANDMARKS
-  set(file "${assets_dir}/drishti_face_5_point_mean_48x48.xml")
+  set(file "${DRISHTI_ASSETS_FACE_DETECTOR_MEAN}")
   set("${DRISHTI_MEAN_FACE_LANDMARKS}" "${file}" PARENT_SCOPE)
 
   if(NOT EXISTS "${file}")
