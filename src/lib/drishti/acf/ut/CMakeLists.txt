@@ -26,7 +26,7 @@ drishti_set_unit_test_assets(
     DRISHTI_EYE_MODEL
     DRISHTI_MEAN_FACE_LANDMARKS)
 
-set(DRISHTI_TEST_FACE_IMAGE_COLOR "${assets_dir}/images/lena512color.png")
+set(DRISHTI_TEST_FACE_IMAGE_COLOR "${DRISHTI_FACES_FACE_IMAGE}")
 
 if(NOT EXISTS "${DRISHTI_TEST_FACE_IMAGE_COLOR}")
   message(FATAL_ERROR "Failed to find test face image: ${DRISHTI_TEST_FACE_IMAGE_COLOR}")
